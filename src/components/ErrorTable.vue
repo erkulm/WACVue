@@ -31,7 +31,7 @@
             <template #body="slotProps">
               <Button
                 icon="pi pi-search"
-                @click="showError(slotProps.data.errorAddress, $event)"
+                @click="showError(slotProps.data.id, $event)"
               />
             </template>
           </Column>
@@ -75,22 +75,9 @@ export default {
     Button,
   },
   methods: {
-    showError(details, event) {
-      console.log(event);
-      var element = document.getElementById('my_frame').contentWindow.document.querySelector(details.split('>')[0].trim())
-      //var element = document.querySelector(details.errorScene);
-      if (element != null) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "nearest",
-        });
-
-        element.style.border = "5px dashed #F76C6C";
-        setTimeout(() => {
-          element.border = "none";
-        }, 2000);
-      }
+    showError(details) {
+      let iframe = document.getElementById('my_frame');
+      iframe.contentWindow.postMessage(details,'*');
     },
     expandAll() {
       this.expandedRows = this.errors.filter((p) => p.document);

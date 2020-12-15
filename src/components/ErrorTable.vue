@@ -56,7 +56,7 @@ export default {
   },
   mounted() {
     fetch(
-      "http://localhost:8086/generate-report?address=https://en.wikipedia.org/wiki/Death_of_Cleopatra",
+      "http://localhost:8086/generate-report?address=" + this.address,
       {
         method: "get",
       }
@@ -68,6 +68,12 @@ export default {
         this.errors = jsonData;
         this.groupedErrors = groupBy(this.errors);
       });
+  },
+  props:{
+    address:{
+      type: String,
+      required: true
+    }
   },
   components: {
     DataTable,
